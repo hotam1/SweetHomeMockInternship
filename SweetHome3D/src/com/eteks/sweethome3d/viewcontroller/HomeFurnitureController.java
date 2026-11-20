@@ -52,10 +52,10 @@ public class HomeFurnitureController implements Controller {
   /**
    * The properties that may be edited by the view associated to this controller. 
    */
-  public enum Property {ICON, NAME, NAME_VISIBLE, DESCRIPTION, PRICE, X, Y, ELEVATION, ANGLE_IN_DEGREES, BASE_PLAN_ITEM, 
+  public enum Property {ICON, NAME, NAME_VISIBLE, DESCRIPTION, PRICE, X, Y, ELEVATION, ANGLE_IN_DEGREES, BASE_PLAN_ITEM,
       WIDTH, DEPTH,  HEIGHT, PROPORTIONAL, COLOR, PAINT, SHININESS, VISIBLE, MODEL_MIRRORED, LIGHT_POWER, 
       RESIZABLE, DEFORMABLE, TEXTURABLE}
-  
+  // TH NOTES: enum defines the possibilities that type Property can hold
   /**
    * The possible values for {@linkplain #getPaint() paint type}.
    */
@@ -591,11 +591,20 @@ public class HomeFurnitureController implements Controller {
    * Returns <code>true</code> if the given <code>property</code> is editable.
    * Depending on whether a property is editable or not, the view associated to this controller
    * may render it differently.
-   * The implementation of this method always returns <code>true</code> except for <code>DESCRIPTION</code> and <code>PRICE</code> properties. 
+   * The implementation of this method always returns <code>true</code> except for <code>PRICE</code> properties.
+   * Implementation for <code>LIGHT_POWER</code> and <code>VISIBLE</code> may differ depending on their conditions
    */
   public boolean isPropertyEditable(Property property) {
+    // TH NOTES: This method receives a type Property
+    // TH NOTES: Type Property defines all the possible constants, but the variable holds only ONE at a time
     switch (property) {
+      // Look at the current value of property and execute the code belonging to the matching case?
       case DESCRIPTION :
+        return true;
+        // If the Property type holds DESCRIPTION, we are in this case.
+        // Previously, DESCRIPTION "FELL THROUGH" to PRICE which returned false
+        // Which is why we were not able to see why description was not editable
+        // text box
       case PRICE :
         return false;
       case LIGHT_POWER :
